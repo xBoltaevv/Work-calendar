@@ -1,0 +1,174 @@
+:root {
+    --bg: #f3f5f6;
+    --surface: #ffffff;
+    --text: #1f292b;
+    --muted: #697477;
+    --border: #dce2e4;
+    --accent: #e8663e;
+    --accent-dark: #c94f2a;
+    --worked: #e6f6ea;
+    --worked-border: #8bc79a;
+    --today: #e8f1ff;
+    --paid: #eaf3ff;
+    --danger: #c62828;
+    --shadow: 0 12px 35px rgba(31, 41, 43, .08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell { width: min(1100px, 100%); margin: 0 auto; }
+.app-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.app-header h1 { margin: 2px 0 5px; font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.eyebrow { margin: 0; color: var(--accent-dark); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.user-greeting { margin: 0; color: var(--muted); font-size: 14px; }
+
+.toolbar { display: flex; gap: 8px; margin-bottom: 14px; }
+.primary-btn, .secondary-btn, .paid-btn, .danger-btn, .icon-btn {
+    border: 0;
+    border-radius: 9px;
+    padding: 9px 13px;
+    font-weight: 700;
+    transition: transform .15s, opacity .15s, background .2s;
+}
+.primary-btn { color: #fff; background: var(--accent); }
+.primary-btn:hover { background: var(--accent-dark); }
+.secondary-btn { color: var(--text); background: #e8edef; }
+.secondary-btn:hover { background: #dce3e6; }
+.paid-btn { color: #174f2a; background: #d9f1df; }
+.danger-btn { color: #fff; background: var(--danger); }
+.icon-btn { padding: 2px 8px; color: var(--muted); background: transparent; font-size: 28px; line-height: 1; }
+button:active { transform: translateY(1px); }
+button:focus-visible { outline: 3px solid rgba(232, 102, 62, .3); outline-offset: 2px; }
+
+.calendar-card, .panel, .summary-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+.calendar-card { overflow-x: auto; padding: 12px; }
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(70px, 1fr));
+    gap: 5px;
+    min-width: 520px;
+}
+.month-title {
+    grid-column: 1 / -1;
+    padding: 12px 0 6px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+}
+.day-name {
+    padding: 8px 4px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+.day {
+    position: relative;
+    min-height: 74px;
+    padding: 8px 6px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fff;
+    white-space: pre-line;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.day:hover { border-color: #b9c3c7; transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,0,0,.05); }
+.day.empty { cursor: default; background: #fafbfb; }
+.day.empty:hover { transform: none; box-shadow: none; }
+.day.worked { border-color: var(--worked-border); background: var(--worked); }
+.day.paid { border-color: #8ab4e8; background: var(--paid); }
+.day.today { box-shadow: inset 0 0 0 2px #8fb5e5; }
+.day-number { display: block; font-weight: 800; }
+.day-details { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+
+.panel { margin-top: 16px; padding: 18px; }
+.panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.panel h2 { margin: 0 0 3px; font-size: 17px; }
+.panel-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+.form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.form-grid label { margin: 0; color: var(--muted); font-size: 12px; font-weight: 700; }
+.form-grid input { width: 100%; margin-top: 6px; padding: 10px; border: 1px solid var(--border); border-radius: 9px; background: #fff; outline: none; }
+.form-grid input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232, 102, 62, .12); }
+.button-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+.summary-card { padding: 17px; }
+.summary-card span { color: var(--muted); font-size: 12px; font-weight: 700; }
+.summary-card strong { display: block; margin-top: 7px; font-size: 22px; }
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(12, 18, 20, .48);
+    backdrop-filter: blur(2px);
+}
+.popup {
+    position: fixed;
+    z-index: 60;
+    top: 50%;
+    left: 50%;
+    width: min(520px, calc(100% - 28px));
+    max-height: calc(100vh - 28px);
+    overflow-y: auto;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: 0 25px 70px rgba(0,0,0,.25);
+}
+.popup-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+.popup h2 { margin: 3px 0 0; font-size: 20px; }
+.shift-preview { margin: 14px 0 0; padding: 10px 12px; border-radius: 9px; background: #f3f6f7; color: var(--text); font-size: 13px; font-weight: 700; }
+.popup-actions { justify-content: flex-end; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 760px) {
+    body { padding: 14px 10px 32px; }
+    .app-header { align-items: center; }
+    .app-header h1 { font-size: 1.45rem; }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .panel-heading { align-items: flex-start; flex-direction: column; }
+    .calendar-card { padding: 7px; }
+    #calendar { min-width: 0; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 3px; }
+    .day { min-height: 66px; padding: 6px 4px; }
+    .day-name { font-size: 10px; }
+    .day-details { font-size: 9px; }
+    .popup-actions { justify-content: stretch; }
+    .popup-actions button { flex: 1 1 45%; }
+}
+
+@media (max-width: 430px) {
+    .app-header { gap: 8px; }
+    .secondary-btn, .primary-btn, .paid-btn, .danger-btn { padding: 8px 10px; font-size: 12px; }
+    .day { min-height: 58px; }
+    .day-details { display: none; }
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#263238">
+    <title>Work Hours Calendar</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <main class="app-shell">
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">WORK CALENDAR</p>
+                <h1>📅 Work Hours Calendar</h1>
+                <p id="userGreeting" class="user-greeting"></p>
+            </div>
+            <button id="logoutBtn" class="secondary-btn" type="button">Log Out</button>
+        </header>
+
+        <section class="toolbar" aria-label="Calendar controls">
+            <button id="expandBtn" class="primary-btn" type="button">Expand to Full Year</button>
+            <button id="todayBtn" class="secondary-btn" type="button">Today</button>
+        </section>
+
+        <section class="calendar-card">
+            <div id="calendar" aria-label="Work calendar"></div>
+        </section>
+
+        <section id="defaultSaveContainer" class="panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>Default Work Info</h2>
+                    <p>Save your usual shift so you can reuse it quickly.</p>
+                </div>
+                <button id="fillDefaultBtn" class="secondary-btn" type="button">Fill Selected Day</button>
+            </div>
+            <div class="form-grid">
+                <label>Start Time <input type="time" id="defaultStart"></label>
+                <label>End Time <input type="time" id="defaultEnd"></label>
+                <label>Hourly Pay ₩ <input type="number" id="defaultPay" min="0" step="100" inputmode="numeric"></label>
+            </div>
+            <div class="button-row">
+                <button id="saveDefaultBtn" class="primary-btn" type="button">Save Default</button>
+                <button id="clearDefaultBtn" class="secondary-btn" type="button">Clear Default</button>
+            </div>
+        </section>
+
+        <section id="summary" class="summary-grid" aria-label="Work summary">
+            <article class="summary-card">
+                <span>Days Worked</span>
+                <strong id="daysWorked">0</strong>
+            </article>
+            <article class="summary-card">
+                <span>Total Hours</span>
+                <strong id="totalHours">0.00</strong>
+            </article>
+            <article class="summary-card">
+                <span>Unpaid Earnings</span>
+                <strong>₩<span id="totalEarnings">0</span></strong>
+            </article>
+            <article class="summary-card">
+                <span>Paid Earnings</span>
+                <strong>₩<span id="paidEarnings">0</span></strong>
+            </article>
+        </section>
+    </main>
+
+    <div id="modalBackdrop" class="modal-backdrop" hidden></div>
+    <section id="popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" hidden>
+        <div class="popup-header">
+            <div>
+                <p class="eyebrow">SHIFT DETAILS</p>
+                <h2 id="popupTitle">Edit Work Day</h2>
+            </div>
+            <button id="closeBtn" class="icon-btn" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="form-grid">
+            <label>Start Time <input type="time" id="startTime"></label>
+            <label>End Time <input type="time" id="endTime"></label>
+            <label>Hourly Pay ₩ <input type="number" id="hourlyPay" min="0" step="100" inputmode="numeric"></label>
+            <label>Break (minutes) <input type="number" id="breakMinutes" min="0" step="15" value="0" inputmode="numeric"></label>
+        </div>
+
+        <p id="shiftPreview" class="shift-preview">Enter your shift details.</p>
+        <p id="popupMessage" class="form-message" role="alert" aria-live="polite"></p>
+
+        <div class="button-row popup-actions">
+            <button id="useSameBtn" class="secondary-btn" type="button">Use Previous Day</button>
+            <button id="fillPopupDefaultBtn" class="secondary-btn" type="button">Use Default</button>
+            <button id="saveBtn" class="primary-btn" type="button">Save</button>
+            <button id="paidBtn" class="paid-btn" type="button">Mark Paid</button>
+            <button id="deleteBtn" class="danger-btn" type="button">Delete</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
